@@ -33,3 +33,4 @@ benchmarks/graphs
 # connection string
 .env
 .env.production
+setenv

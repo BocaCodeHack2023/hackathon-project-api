@@ -37,6 +37,7 @@ const User = db.model('User', userSchema);
 // create a single address with memonic
 export const create = async (logger: Logger, username: string = "") => {
   const methodName = "create";
+  console.log(process.env.MONGO_URI)
 
   await User.create({name: username});
 
@@ -45,10 +46,9 @@ export const create = async (logger: Logger, username: string = "") => {
 
 if (require.main === module) {
   const logger = getLogger(moduleName);
-
   // test for listin orders
   (async () => {
-    let result = await create(logger, "andrews");
+    let result = await create(logger, "andrews ");
     // console.log(result);
   })();
 }
