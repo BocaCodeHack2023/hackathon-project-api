@@ -1,7 +1,10 @@
-// users controllers
+// client controllers
 import * as usersClient from "./../controllers/api/v1/client/users/index";
 import * as screeningsClient from "./../controllers/api/v1/client/screenings/index";
+import * as locationsClient from "./../controllers/api/v1/client/locations/index";
+import * as ridesClient from "./../controllers/api/v1/client/rides/index";
 
+// admin controllers
 import * as usersAdmin from "../controllers/api/v1/admin/users/index";
 import * as organizationsAdmin from "../controllers/api/v1/admin/users/index";
 import * as screeningsAdmin from "./../controllers/api/v1/admin/screenings/index";
@@ -53,4 +56,11 @@ exports.routes = (app: any) => {
   app.route("/api/v1/client/screenings").get(screeningsClient.index);
   app.route(`/api/v1/client/screenings/:id`).get(screeningsClient.show);
   app.route(`/api/v1/client/screenings/:id`).put(screeningsClient.update);
+
+  app.route("/api/v1/client/locations").get(locationsClient.index);
+  app.route(`/api/v1/client/locations/:id`).get(locationsClient.show);
+
+  app.route("/api/v1/client/rides").post(ridesClient.create);
+  app.route("/api/v1/client/rides").get(ridesClient.index);
+  app.route(`/api/v1/client/rides/:id`).get(ridesClient.show);
 };
