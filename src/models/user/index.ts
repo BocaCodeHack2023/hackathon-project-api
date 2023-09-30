@@ -9,16 +9,16 @@ const logger = getLogger(moduleName);
 // create a single address with memonic
 export const create = async (logger: Logger, username: string = "") => {
   const methodName = "create";
+  console.log(process.env.MONGO_URI)
 
   logger.info({ moduleName, methodName }, username);
 };
 
 if (require.main === module) {
   const logger = getLogger(moduleName);
-
   // test for listin orders
   (async () => {
-    let result = await create(logger, "andrews");
+    let result = await create(logger, "andrews ");
     // console.log(result);
   })();
 }
