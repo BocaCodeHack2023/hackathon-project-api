@@ -31,4 +31,5 @@ benchmarks/graphs
 
 
 # connection string
-connection.ts
+.env
+.env.production
