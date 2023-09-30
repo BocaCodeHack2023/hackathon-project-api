@@ -1,11 +1,11 @@
-import { organizationModel } from "../../../../../models";
+import { userModel } from "../../../../../models";
 import { getLogger } from "../../../../../utils/logger";
 import { inspect } from "../../../../../utils/helper";
 
-const moduleName = "src/controllers/api/v1/admin/organizations/index";
+const moduleName = "src/controllers/api/v1/admin/users/index";
 const logger = getLogger(moduleName);
 
-// list all organizations
+// list all users
 export async function index(req: any, res: any): Promise<void> {
   const methodName = "index";
 
@@ -14,7 +14,7 @@ export async function index(req: any, res: any): Promise<void> {
   logger.info({ moduleName, methodName }, "Start!");
 
   try {
-    const result = await organizationModel.readAll(logger);
+    const result = await userModel.readAll(logger);
 
     res.send(result);
   } catch (error) {
@@ -22,7 +22,7 @@ export async function index(req: any, res: any): Promise<void> {
   }
 }
 
-// create a new organization
+// create a new user
 export async function create(req: any, res: any): Promise<void> {
   const methodName = "create";
 
@@ -31,7 +31,7 @@ export async function create(req: any, res: any): Promise<void> {
   logger.info({ moduleName, methodName }, "Start!");
 
   try {
-    const result = await organizationModel.create(logger, data);
+    const result = await userModel.create(logger, data);
 
     res.send(result);
   } catch (error) {
@@ -39,7 +39,7 @@ export async function create(req: any, res: any): Promise<void> {
   }
 }
 
-// update a organization
+// update a user
 export async function update(req: any, res: any): Promise<void> {
   const methodName = "update";
 
@@ -48,7 +48,7 @@ export async function update(req: any, res: any): Promise<void> {
   logger.info({ moduleName, methodName }, "Start!");
 
   try {
-    const result = await organizationModel.update(logger, data);
+    const result = await userModel.update(logger, data);
 
     res.send(result);
   } catch (error) {
@@ -56,7 +56,7 @@ export async function update(req: any, res: any): Promise<void> {
   }
 }
 
-// display one organization
+// display one user
 export async function show(req: any, res: any): Promise<void> {
   const methodName = "show";
 
@@ -65,7 +65,7 @@ export async function show(req: any, res: any): Promise<void> {
   logger.info({ moduleName, methodName }, "Start!");
 
   try {
-    const result = await organizationModel.readById(logger, data);
+    const result = await userModel.readById(logger, data);
 
     res.send(result);
   } catch (error) {
@@ -73,7 +73,7 @@ export async function show(req: any, res: any): Promise<void> {
   }
 }
 
-// destroy organization from db
+// destroy user from db
 export async function destroy(req: any, res: any): Promise<void> {
   const methodName = "destroy";
 
@@ -82,7 +82,7 @@ export async function destroy(req: any, res: any): Promise<void> {
   logger.info({ moduleName, methodName }, "Start!");
 
   try {
-    const result = await organizationModel.remove(logger, data.id);
+    const result = await userModel.remove(logger, data.id);
 
     res.send(result);
   } catch (error) {
