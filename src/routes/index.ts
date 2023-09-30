@@ -14,8 +14,6 @@ exports.routes = (app: any) => {
   // CLIENT ROUTES
   // /api/v1/client
   app.route("/api/v1/admin/users").post(usersClient.create);
-  app.route("/api/v1/admin/users").get(usersClient.index);
   app.route(`/api/v1/admin/users/:id`).get(usersClient.show);
   app.route(`/api/v1/admin/users/:id`).put(usersClient.update);
-  app.route(`/api/v1/admin/users/:id`).delete(usersClient.destroy);
 };
