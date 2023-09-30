@@ -17,15 +17,35 @@ export function create(req: any, res: any): any {
 }
 
 // update a user
-export function update(req: any, res: any): any {
+export async function update(req: any, res: any): Promise<void> {
   const methodName = "update";
 
+  const data = req.body;
+
   logger.info({ moduleName, methodName }, "Start!");
+
+  try {
+    const result = await userModel.update(logger, data);
+
+    res.send(result);
+  } catch (error) {
+    res.send({ error: error.message });
+  }
 }
 
 // display one user
-export function show(req: any, res: any): any {
+export async function show(req: any, res: any): Promise<void> {
   const methodName = "show";
 
+  const data = req.params.id;
+
   logger.info({ moduleName, methodName }, "Start!");
+
+  try {
+    const result = await userModel.readById(logger, data);
+
+    res.send(result);
+  } catch (error) {
+    res.send({ error: error.message });
+  }
 }
