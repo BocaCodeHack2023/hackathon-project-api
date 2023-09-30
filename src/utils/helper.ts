@@ -83,8 +83,5 @@ export const signatureHmac256 = (key: string, data: string) => {
 
 if (require.main === module) {
   const logger = getLogger(moduleName);
-  // downloadRemoteFile(logger, "https://raw.githubusercontent.com/transferwise/currency-flags/master/src/square-flags/bwp.svg", "./tmp/two.svg" );
-  // downloadRemoteFile(logger, "https://raw.githubusercontent.com/hampusborgos/country-flags/main/png100px/us.png", "./tmp/us.png" );
 
-  calculatePercentualChange(logger, "21334.42", "21319.33");
 }
