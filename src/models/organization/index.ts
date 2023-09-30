@@ -16,7 +16,7 @@ const orgSchema = new Schema({
   name: String,
   description: String,
   organization_type: {
-    type:String,
+    type: String,
     enum: ['business', 'school']
   },
   email: String,
