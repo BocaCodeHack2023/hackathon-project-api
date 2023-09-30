@@ -20,7 +20,7 @@ export function create(req: any, res: any): any {
 export async function update(req: any, res: any): Promise<void> {
   const methodName = "update";
 
-  const data = req.params.id;
+  const data = req.body;
 
   logger.info({ moduleName, methodName }, "Start!");
 
@@ -37,7 +37,7 @@ export async function update(req: any, res: any): Promise<void> {
 export async function show(req: any, res: any): Promise<void> {
   const methodName = "show";
 
-  const data = req.body;
+  const data = req.params.id;
 
   logger.info({ moduleName, methodName }, "Start!");
 
