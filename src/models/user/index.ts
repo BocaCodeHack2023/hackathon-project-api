@@ -86,14 +86,15 @@ export const readAll = async (logger: Logger) => {
   return users;
 }
 
+// It's possible that data._id should be data.id instead here.  If it breaks try that.
 export const update = async (logger: Logger, data: any) => {
   const methodName = "update";
 
-  if(!data.id){
+  if(!data._id){
     console.error("Update failed, no ID")
   }
 
-  const result = await User.findByIdAndUpdate(data.id, data);
+  const result = await User.findByIdAndUpdate(data._id, data);
 
   logger.info({ moduleName, methodName });
 
@@ -122,7 +123,7 @@ if (require.main === module) {
     // let result = await readById (logger, '65186ff8bdc6c69c7645cbaf')
     // let result = await readAll(logger);
     // let result = await remove(logger, "651873cbcb4560d9ad363e69")
-    // let result = await update(logger, {id: "65186ff8bdc6c69c7645cbaf", last_name: "new last name"})
+    // let result = await update(logger, {_id: "65186ff8bdc6c69c7645cbaf", last_name: "new last name"})
     // console.log(result);
   })();
 }
