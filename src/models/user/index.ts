@@ -40,8 +40,7 @@ const User = db.model('User', userSchema);
 // create a single address with memonic
 export const create = async (logger: Logger, data: any) => {
   const methodName = "create";
-  console.log(process.env.MONGO_URI)
-
+  
   await User.create({
     name: data.name || "",
     last_name: data.last_name || "",
@@ -60,14 +59,29 @@ export const create = async (logger: Logger, data: any) => {
     employee_id: data.employee_id || ""
   });
 
-  logger.info({ moduleName, methodName }, data.name || "name undefined");
+  logger.info({ moduleName, methodName }, data);
 };
+
+export const readById = async (logger: Logger, id: string = "") => {
+  const methodName = "readById";
+
+  if(!id) {
+    console.error("Read failed, No ID");
+  }
+
+  const user = await User.findById(id);
+
+  logger.info({ moduleName, methodName });
+
+  return user;
+}
 
 if (require.main === module) {
   const logger = getLogger(moduleName);
   // test for listin orders
   (async () => {
-    let result = await create(logger, {name: "andrew", last_name: "wilborn", email:"test email"});
+    await create(logger, {name: "andrew", last_name: "wilborn", email:"test email"});
+    let result = await readById (logger, '65186ff8bdc6c69c7645cbaf')
     // console.log(result);
   })();
 }
