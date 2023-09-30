@@ -16,7 +16,7 @@ const orgSchema = new Schema({
   name: String,
   description: String,
   organization_type: {
-    type:String,
+    type: String,
     enum: ['business', 'school']
   },
   email: String,
@@ -52,7 +52,7 @@ if (require.main === module) {
   const logger = getLogger(moduleName);
   // test for listin orders
   (async () => {
-    let result = await create(logger, {name: "City Furniture", description: "descripiton here"});
+    let result = await create(logger, {name: "City Furniture ss", description: "descripiton here"});
     // let result = await readById (logger, '65186ff8bdc6c69c7645cbaf')
     // let result = await readAll(logger);
     // let result = await remove(logger, "651873cbcb4560d9ad363e69")
