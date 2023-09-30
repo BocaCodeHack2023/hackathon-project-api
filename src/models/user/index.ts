@@ -3,45 +3,47 @@ import Logger from "bunyan";
 import { getLogger } from "../../utils/logger";
 import { inspect } from "../../utils/helper";
 
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 const { Schema } = mongoose;
 
-import db from '../../utils/connection';
+import db from "../../utils/connection";
 
 const moduleName = "src/models/user/index";
 const logger = getLogger(moduleName);
 
 // Create schema
-const userSchema = new Schema({
-  name: String,
-  last_name: String,
-  dob: Date,
-  email: String,
-  phone: String,
-  address_street: String,
-  address_city: String,
-  address_state: String,
-  address_zip: String,
-  insurance_provider: String,
-  last_screening: Date,
-  gender: String,
-  password: String,
-  user_type: {
-    type: String,
-    enum: ['admin', 'client', 'volunteer']
+const userSchema = new Schema(
+  {
+    name: String,
+    last_name: String,
+    dob: Date,
+    email: String,
+    phone: String,
+    address_street: String,
+    address_city: String,
+    address_state: String,
+    address_zip: String,
+    insurance_provider: String,
+    last_screening: Date,
+    gender: String,
+    password: String,
+    user_type: {
+      type: String,
+      enum: ["admin", "client", "volunteer"],
+    },
+    avatar_url: String,
+    employee_id: String,
   },
-  avatar_url: String,
-  employee_id: String
-}, {
-  timestamps: true
-})
-const User = db.model('User', userSchema);
-
+  {
+    timestamps: true,
+  }
+);
+const User = db.model("User", userSchema);
 
 // create a single address with memonic
 export const create = async (logger: Logger, data: any) => {
   const methodName = "create";
-  
+
   await User.create({
     name: data.name || "",
     last_name: data.last_name || "",
@@ -58,7 +60,7 @@ export const create = async (logger: Logger, data: any) => {
     password: data.password || "",
     user_type: data.user_type || "client",
     avatar_url: data.avatar_url || "",
-    employee_id: data.employee_id || ""
+    employee_id: data.employee_id || "",
   });
 
   logger.info({ moduleName, methodName }, data);
@@ -67,7 +69,7 @@ export const create = async (logger: Logger, data: any) => {
 export const readById = async (logger: Logger, id: string = "") => {
   const methodName = "readById";
 
-  if(!id) {
+  if (!id) {
     console.error("Read failed, No ID");
   }
 
@@ -76,24 +78,24 @@ export const readById = async (logger: Logger, id: string = "") => {
   logger.info({ moduleName, methodName });
 
   return user;
-}
+};
 
 export const readAll = async (logger: Logger) => {
   const methodName = "readAll";
 
-  const users = await User.find()
+  const users = await User.find();
 
   logger.info({ moduleName, methodName });
 
   return users;
-}
+};
 
 // It's possible that data._id should be data.id instead here.  If it breaks try that.
 export const update = async (logger: Logger, data: any) => {
   const methodName = "update";
 
-  if(!data._id){
-    console.error("Update failed, no ID")
+  if (!data._id) {
+    console.error("Update failed, no ID");
   }
 
   const result = await User.findByIdAndUpdate(data._id, data);
@@ -101,12 +103,12 @@ export const update = async (logger: Logger, data: any) => {
   logger.info({ moduleName, methodName });
 
   return result;
-}
+};
 
 export const remove = async (logger: Logger, id: string) => {
   const methodName = "remove";
 
-  if(!id) {
+  if (!id) {
     console.error("Remove failed, no ID");
   }
 
@@ -115,7 +117,7 @@ export const remove = async (logger: Logger, id: string) => {
   logger.info({ moduleName, methodName });
 
   return result;
-}
+};
 
 if (require.main === module) {
   const logger = getLogger(moduleName);
