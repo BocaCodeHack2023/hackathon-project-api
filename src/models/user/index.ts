@@ -9,7 +9,6 @@ const logger = getLogger(moduleName);
 // create a single address with memonic
 export const create = async (logger: Logger, username: string = "") => {
   const methodName = "create";
-  console.log(process.env.MONGO_URI)
 
   logger.info({ moduleName, methodName }, username);
 };
