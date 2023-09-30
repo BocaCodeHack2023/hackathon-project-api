@@ -1,10 +1,10 @@
 {
-  "name": "city-hackathon-api",
+  "name": "city-hackaton-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "American cancer association admin/user/volunteer portal",
   "main": "index.js",
   "type": "module",
-  "license": "AGPL-version-3.0",
+  "license": "UNLICENSED",
   "private": false,
   "engines": {
     "node": ">= 14.0.0",
@@ -17,22 +17,11 @@
   },
   "bugs": "",
   "keywords": [],
-  "author": {
-    "name": "",
-    "email": "",
-    "url": ""
-  },
-  "contributors": [
-
-  ],
+  "author": "Mario D, Andrew W, Lorenzo M, Idan F, Sam H",
+  "contributors": [],
   "scripts": {
     "dev": "",
     "test": ""
   },
-  "dependencies": {
-
-  },
-  "devDependencies": {
-
-  }
+  "devDependencies": {}
 }
