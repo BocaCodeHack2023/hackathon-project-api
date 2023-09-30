@@ -45,7 +45,7 @@ const User = db.model("User", userSchema);
 export const create = async (logger: Logger, data: any) => {
   const methodName = "create";
 
-  await User.create({
+  let result = await User.create({
     name: data.name || "",
     company_id: data.company_id || "", // Can be falsey if user is a volunteer
     last_name: data.last_name || "",
@@ -66,6 +66,8 @@ export const create = async (logger: Logger, data: any) => {
   });
 
   logger.info({ moduleName, methodName }, data);
+
+  return result;
 };
 
 export const readById = async (logger: Logger, id: string = "") => {
@@ -75,21 +77,21 @@ export const readById = async (logger: Logger, id: string = "") => {
     console.error("Read failed, No ID");
   }
 
-  const user = await User.findById(id);
+  const result = await User.findById(id);
 
   logger.info({ moduleName, methodName });
 
-  return user;
+  return result;
 };
 
 export const readAll = async (logger: Logger) => {
   const methodName = "readAll";
 
-  const users = await User.find();
+  const result = await User.find();
 
   logger.info({ moduleName, methodName });
 
-  return users;
+  return result;
 };
 
 // It's possible that data._id should be data.id instead here.  If it breaks try that.
@@ -125,7 +127,7 @@ if (require.main === module) {
   const logger = getLogger(moduleName);
   // test for listin orders
   (async () => {
-    // await create(logger, {name: "andrew", last_name: "wilborn", email:"test email"});
+    // let result = await create(logger, {name: "andrew", last_name: "wilborn", email:"test email"});
     // let result = await readById (logger, '65186ff8bdc6c69c7645cbaf')
     // let result = await readAll(logger);
     // let result = await remove(logger, "651873cbcb4560d9ad363e69")

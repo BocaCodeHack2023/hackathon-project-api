@@ -131,21 +131,21 @@ export const readById = async (logger: Logger, id: string = "") => {
     console.error("Read failed, No ID");
   }
 
-  const user = await Screening.findById(id);
+  const result = await Screening.findById(id);
 
   logger.info({ moduleName, methodName });
 
-  return user;
+  return result;
 }
 
 export const readAll = async (logger: Logger) => {
   const methodName = "readAll";
 
-  const users = await Screening.find()
+  const result = await Screening.find()
 
   logger.info({ moduleName, methodName });
 
-  return users;
+  return result;
 }
 
 export const update = async (logger: Logger, data: any) => {

@@ -45,21 +45,21 @@ export const readById = async (logger: Logger, id: string = "") => {
     console.error("Read failed, No ID");
   }
 
-  const user = await Ride.findById(id);
+  const result = await Ride.findById(id);
 
   logger.info({ moduleName, methodName });
 
-  return user;
+  return result;
 }
 
 export const readAll = async (logger: Logger) => {
   const methodName = "readAll";
 
-  const users = await Ride.find()
+  const result = await Ride.find()
 
   logger.info({ moduleName, methodName });
 
-  return users;
+  return result;
 }
 
 export const update = async (logger: Logger, data: any) => {
