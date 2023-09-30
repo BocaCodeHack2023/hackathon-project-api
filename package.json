@@ -19,7 +19,7 @@
   "author": "Mario D, Andrew W, Lorenzo M, Idan F, Sam H",
   "contributors": [],
   "scripts": {
-    "dev": "nodemon   src/index.ts"
+    "dev": ". ./setenv && nodemon src/index.ts"
   },
   "dependencies": {
     "@types/body-parser": "^1.19.3",

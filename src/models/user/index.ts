@@ -87,11 +87,31 @@ export const readAll = async (logger: Logger) => {
 }
 
 export const update = async (logger: Logger, data: any) => {
+  const methodName = "update";
 
+  if(!data.id){
+    console.error("Update failed, no ID")
+  }
+
+  const result = await User.findByIdAndUpdate(data.id, data);
+
+  logger.info({ moduleName, methodName });
+
+  return result;
 }
 
 export const remove = async (logger: Logger, id: string) => {
+  const methodName = "remove";
 
+  if(!id) {
+    console.error("Remove failed, no ID");
+  }
+
+  const result = await User.findByIdAndDelete(id);
+
+  logger.info({ moduleName, methodName });
+
+  return result;
 }
 
 if (require.main === module) {
@@ -100,7 +120,9 @@ if (require.main === module) {
   (async () => {
     // await create(logger, {name: "andrew", last_name: "wilborn", email:"test email"});
     // let result = await readById (logger, '65186ff8bdc6c69c7645cbaf')
-    let result = await readAll(logger);
-    console.log(result);
+    // let result = await readAll(logger);
+    // let result = await remove(logger, "651873cbcb4560d9ad363e69")
+    // let result = await update(logger, {id: "65186ff8bdc6c69c7645cbaf", last_name: "new last name"})
+    // console.log(result);
   })();
 }
