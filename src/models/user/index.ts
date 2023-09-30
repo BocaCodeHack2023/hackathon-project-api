@@ -76,12 +76,25 @@ export const readById = async (logger: Logger, id: string = "") => {
   return user;
 }
 
+export const readAll = async (logger: Logger) => {
+  const methodName = "readAll";
+
+  const users = await User.find()
+
+  logger.info({ moduleName, methodName });
+
+  return users;
+}
+
+
+
 if (require.main === module) {
   const logger = getLogger(moduleName);
   // test for listin orders
   (async () => {
-    await create(logger, {name: "andrew", last_name: "wilborn", email:"test email"});
-    let result = await readById (logger, '65186ff8bdc6c69c7645cbaf')
-    // console.log(result);
+    // await create(logger, {name: "andrew", last_name: "wilborn", email:"test email"});
+    // let result = await readById (logger, '65186ff8bdc6c69c7645cbaf')
+    let result = await readAll(logger);
+    console.log(result);
   })();
 }
