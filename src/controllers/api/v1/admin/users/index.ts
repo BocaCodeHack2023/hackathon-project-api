@@ -60,9 +60,10 @@ export async function update(req: any, res: any): Promise<void> {
 export async function show(req: any, res: any): Promise<void> {
   const methodName = "show";
 
-  const data = req.body;
+  const data = req.params.id;
 
   logger.info({ moduleName, methodName }, "Start!");
+  // logger.info({ moduleName, methodName }, req);
 
   try {
     const result = await userModel.readById(logger, data);
