@@ -27,28 +27,47 @@ const userSchema = new Schema({
   password: String,
   user_type: {
     type: String,
-    enum: ['admin']
+    enum: ['admin', 'client', 'volunteer']
   },
   avatar_url: String,
+  employee_id: String
+}, {
+  timestamps: true
 })
 const User = db.model('User', userSchema);
 
 
 // create a single address with memonic
-export const create = async (logger: Logger, username: string = "") => {
+export const create = async (logger: Logger, data: any) => {
   const methodName = "create";
   console.log(process.env.MONGO_URI)
 
-  await User.create({name: username});
+  await User.create({
+    name: data.name || "",
+    last_name: data.last_name || "",
+    dob: data.dob || new Date(),
+    email: data.email || "",
+    phone: data.phone || "",
+    address_street: data.address_street || "",
+    address_city: data.address_city || "",
+    address_zip: data.address_zip || "",
+    insurance_provider: data.insurance_provider || "",
+    last_screening: data.last_screening || new Date(),
+    gender: data.gender || "",
+    password: data.password || "",
+    user_type: data.user_type || "client",
+    avatar_url: data.avatar_url || "",
+    employee_id: data.employee_id || ""
+  });
 
-  logger.info({ moduleName, methodName }, username);
+  logger.info({ moduleName, methodName }, data.name || "name undefined");
 };
 
 if (require.main === module) {
   const logger = getLogger(moduleName);
   // test for listin orders
   (async () => {
-    let result = await create(logger, "andrews ");
+    let result = await create(logger, {name: "andrew", last_name: "wilborn", email:"test email"});
     // console.log(result);
   })();
 }
