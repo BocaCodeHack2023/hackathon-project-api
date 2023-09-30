@@ -15,6 +15,7 @@ const logger = getLogger(moduleName);
 const userSchema = new Schema(
   {
     name: String,
+    company_id: String,
     last_name: String,
     dob: Date,
     email: String,
@@ -46,6 +47,7 @@ export const create = async (logger: Logger, data: any) => {
 
   await User.create({
     name: data.name || "",
+    company_id: data.company_id || "", // Can be falsey if user is a volunteer
     last_name: data.last_name || "",
     dob: data.dob || new Date(),
     email: data.email || "",
