@@ -23,6 +23,7 @@ const orgSchema = new Schema({
   phone: String,
   address_street: String,
   address_city: String,
+  address_state: String,
   address_zip: String
 }, {
   timestamps: true
@@ -40,6 +41,7 @@ export const create = async (logger: Logger, data: any) => {
     phone: data.phone || "",
     address_street: data.address_street || "",
     address_city: data.address_city || "",
+    address_state: data.address_state || "",
     address_zip: data.address_zip || "",
   });
 
