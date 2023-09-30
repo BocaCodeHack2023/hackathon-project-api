@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. .env
+. setenv
 
 tsc
 
