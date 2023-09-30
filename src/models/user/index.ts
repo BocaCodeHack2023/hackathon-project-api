@@ -86,7 +86,13 @@ export const readAll = async (logger: Logger) => {
   return users;
 }
 
+export const update = async (logger: Logger, data: any) => {
 
+}
+
+export const remove = async (logger: Logger, id: string) => {
+
+}
 
 if (require.main === module) {
   const logger = getLogger(moduleName);
