@@ -48,15 +48,68 @@ export const create = async (logger: Logger, data: any) => {
   return result;
 };
 
+export const readById = async (logger: Logger, id: string = "") => {
+  const methodName = "readById";
+
+  if(!id) {
+    console.error("Read failed, No ID");
+  }
+
+  const user = await Organization.findById(id);
+
+  logger.info({ moduleName, methodName });
+
+  return user;
+}
+
+export const readAll = async (logger: Logger) => {
+  const methodName = "readAll";
+
+  const users = await Organization.find()
+
+  logger.info({ moduleName, methodName });
+
+  return users;
+}
+
+export const update = async (logger: Logger, data: any) => {
+  const methodName = "update";
+
+  if(!data._id){
+    console.error("Update failed, no ID")
+    return;
+  }
+
+  const result = await Organization.findByIdAndUpdate(data._id, data);
+
+  logger.info({ moduleName, methodName });
+
+  return result;
+}
+
+export const remove = async (logger: Logger, id: string) => {
+  const methodName = "remove";
+
+  if(!id) {
+    console.error("Remove failed, no ID");
+  }
+
+  const result = await Organization.findByIdAndDelete(id);
+
+  logger.info({ moduleName, methodName });
+
+  return result;
+}
+
 if (require.main === module) {
   const logger = getLogger(moduleName);
   // test for listin orders
   (async () => {
-    let result = await create(logger, {name: "City Furniture", description: "descripiton here"});
-    // let result = await readById (logger, '65186ff8bdc6c69c7645cbaf')
+    // let result = await create(logger, {name: "City Furniture", description: "descripiton here"});
+    // let result = await readById (logger, '65187f25a4df9ce3628fc873')
     // let result = await readAll(logger);
-    // let result = await remove(logger, "651873cbcb4560d9ad363e69")
-    // let result = await update(logger, {id: "65186ff8bdc6c69c7645cbaf", last_name: "new last name"})
-    console.log(result);
+    // let result = await remove(logger, "6518811ce7bdf278f77b95f3")
+    // let result = await update(logger, {_id: "65187f25a4df9ce3628fc873", description: "new description"})
+    // console.log(result);
   })();
 }
