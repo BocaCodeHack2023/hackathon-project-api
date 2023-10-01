@@ -103,6 +103,20 @@ export const remove = async (logger: Logger, id: string) => {
   return result;
 }
 
+export const verifyOrganizationId = async (logger: Logger, id: string) => {
+  const methodName = "verifyOrganizationId";
+
+  if (!id) {
+    return false;
+  }
+
+  const result = await Organization.exists({_id: id});
+
+  logger.info({ moduleName, methodName });
+
+  return result;
+}
+
 if (require.main === module) {
   const logger = getLogger(moduleName);
   // test for listin orders

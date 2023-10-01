@@ -7,6 +7,7 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 import db from "../../utils/connection";
+import { verifyOrganizationId } from "../organization";
 
 const moduleName = "src/models/user/index";
 const logger = getLogger(moduleName);
@@ -44,6 +45,10 @@ const User = db.model("User", userSchema);
 // create a single address with memonic
 export const create = async (logger: Logger, data: any) => {
   const methodName = "create";
+
+  if(data.user_type != 'volunteer' && !await verifyOrganizationId(logger, data.company_id)){
+    return {message: "Error, organization id does not exist"}
+  }
 
   let result = await User.create({
     name: data.name || "",
@@ -142,7 +147,7 @@ if (require.main === module) {
   const logger = getLogger(moduleName);
   // test for listin orders
   (async () => {
-    // let result = await create(logger, {name: "andrew", last_name: "wilborn", email:"test email"});
+    // let result = await create(logger, {name: "andrew", last_name: "wilborn", email:"test email", company_id: "65187f25a4df9ce3628fc873"});
     // let result = await readById (logger, '65186ff8bdc6c69c7645cbaf')
     // let result = await readAll(logger);
     // let result = await remove(logger, "651873cbcb4560d9ad363e69")

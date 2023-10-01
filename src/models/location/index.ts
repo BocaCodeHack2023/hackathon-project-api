@@ -102,7 +102,7 @@ export const remove = async (logger: Logger, id: string) => {
 }
 
 export const verifyLocationId = async (logger: Logger, id: string) => {
-  const methodName = "verifyUserId";
+  const methodName = "verifyLocationId";
 
   if (!id) {
     return false;
