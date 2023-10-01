@@ -1,0 +1,35 @@
+version: '2'
+
+services:
+  acskare_api:
+    container_name: acskare_api
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 3030:3030
+    volumes:
+      - /tmp:/tmp
+    env_file:
+      - ./setenv
+    environment:
+      - MODE=prod
+      - CLOUDWATCH_REGION=us-west-2
+      - LOG_LEVEL=info
+      - REPO_NAME='acskare'
+    networks:
+      - nginx.docker
+    deploy:
+      resources:
+        limits:
+          memory: 4000M
+        reservations:
+          memory: 500M
+
+networks:
+  nginx.docker:
+    name: nginx.docker
+    external: true
+
+volumes:
+  db_data: {}
