@@ -188,6 +188,20 @@ export const remove = async (logger: Logger, id: string) => {
   return result;
 }
 
+export const verifyScreeningId = async (logger: Logger, id: string) => {
+  const methodName = "verifyScreeningId";
+
+  if (!id) {
+    return false;
+  }
+
+  const result = await Screening.exists({_id: id});
+
+  logger.info({ moduleName, methodName });
+
+  return result;
+}
+
 if (require.main === module) {
   const logger = getLogger(moduleName);
   // test for listin orders
