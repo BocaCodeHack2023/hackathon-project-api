@@ -7,6 +7,8 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 import db from '../../utils/connection';
+import { verifyUserId } from "../user";
+import { verifyScreeningId } from "../screening";
 
 const moduleName = "src/models/user/index";
 const logger = getLogger(moduleName);
@@ -27,6 +29,14 @@ const Ride = db.model('Ride', rideSchema);
 export const create = async (logger: Logger, data: any) => {
   const methodName = "create";
 
+  if(!await verifyUserId(logger, data.volunteer_id)){
+    return {message: "Error, volunteer id does not exist"}
+  }
+
+  if(!await verifyScreeningId(logger, data.screening_id)){
+    return {message: "Error, screening id does not exist"}
+  }
+
   const result = await Ride.create({
     screening_id: data.screening_id,
     volunteer_id: data.screening_id,
@@ -45,21 +55,21 @@ export const readById = async (logger: Logger, id: string = "") => {
     console.error("Read failed, No ID");
   }
 
-  const user = await Ride.findById(id);
+  const result = await Ride.findById(id);
 
   logger.info({ moduleName, methodName });
 
-  return user;
+  return result;
 }
 
 export const readAll = async (logger: Logger) => {
   const methodName = "readAll";
 
-  const users = await Ride.find()
+  const result = await Ride.find()
 
   logger.info({ moduleName, methodName });
 
-  return users;
+  return result;
 }
 
 export const update = async (logger: Logger, data: any) => {

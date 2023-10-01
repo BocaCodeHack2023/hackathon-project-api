@@ -55,21 +55,21 @@ export const readById = async (logger: Logger, id: string = "") => {
     console.error("Read failed, No ID");
   }
 
-  const user = await Location.findById(id);
+  const result = await Location.findById(id);
 
   logger.info({ moduleName, methodName });
 
-  return user;
+  return result;
 }
 
 export const readAll = async (logger: Logger) => {
   const methodName = "readAll";
 
-  const users = await Location.find()
+  const result = await Location.find()
 
   logger.info({ moduleName, methodName });
 
-  return users;
+  return result;
 }
 
 export const update = async (logger: Logger, data: any) => {
@@ -95,6 +95,20 @@ export const remove = async (logger: Logger, id: string) => {
   }
 
   const result = await Location.findByIdAndDelete(id);
+
+  logger.info({ moduleName, methodName });
+
+  return result;
+}
+
+export const verifyLocationId = async (logger: Logger, id: string) => {
+  const methodName = "verifyLocationId";
+
+  if (!id) {
+    return false;
+  }
+
+  const result = await Location.exists({_id: id});
 
   logger.info({ moduleName, methodName });
 

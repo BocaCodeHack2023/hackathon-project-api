@@ -7,6 +7,7 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 import db from "../../utils/connection";
+import { verifyOrganizationId } from "../organization";
 
 const moduleName = "src/models/user/index";
 const logger = getLogger(moduleName);
@@ -45,7 +46,11 @@ const User = db.model("User", userSchema);
 export const create = async (logger: Logger, data: any) => {
   const methodName = "create";
 
-  await User.create({
+  if(data.user_type != 'volunteer' && !await verifyOrganizationId(logger, data.company_id)){
+    return {message: "Error, organization id does not exist"}
+  }
+
+  let result = await User.create({
     name: data.name || "",
     company_id: data.company_id || "", // Can be falsey if user is a volunteer
     last_name: data.last_name || "",
@@ -66,6 +71,8 @@ export const create = async (logger: Logger, data: any) => {
   });
 
   logger.info({ moduleName, methodName }, data);
+
+  return result;
 };
 
 export const readById = async (logger: Logger, id: string = "") => {
@@ -75,21 +82,21 @@ export const readById = async (logger: Logger, id: string = "") => {
     console.error("Read failed, No ID");
   }
 
-  const user = await User.findById(id);
+  const result = await User.findById(id);
 
   logger.info({ moduleName, methodName });
 
-  return user;
+  return result;
 };
 
 export const readAll = async (logger: Logger) => {
   const methodName = "readAll";
 
-  const users = await User.find();
+  const result = await User.find();
 
   logger.info({ moduleName, methodName });
 
-  return users;
+  return result;
 };
 
 // It's possible that data._id should be data.id instead here.  If it breaks try that.
@@ -121,11 +128,26 @@ export const remove = async (logger: Logger, id: string) => {
   return result;
 };
 
+export const verifyUserId = async (logger: Logger, id: string) => {
+  const methodName = "verifyUserId";
+
+  if (!id) {
+    return false;
+  }
+
+  const result = await User.exists({_id: id});
+
+  logger.info({ moduleName, methodName });
+
+  return result;
+
+}
+
 if (require.main === module) {
   const logger = getLogger(moduleName);
   // test for listin orders
   (async () => {
-    // await create(logger, {name: "andrew", last_name: "wilborn", email:"test email"});
+    // let result = await create(logger, {name: "andrew", last_name: "wilborn", email:"test email", company_id: "65187f25a4df9ce3628fc873"});
     // let result = await readById (logger, '65186ff8bdc6c69c7645cbaf')
     // let result = await readAll(logger);
     // let result = await remove(logger, "651873cbcb4560d9ad363e69")

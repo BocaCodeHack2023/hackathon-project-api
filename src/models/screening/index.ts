@@ -8,6 +8,9 @@ const { Schema } = mongoose;
 
 import db from '../../utils/connection';
 
+import { verifyUserId } from "../user";
+import { verifyLocationId } from "../location";
+
 const moduleName = "src/models/user/index";
 const logger = getLogger(moduleName);
 
@@ -109,6 +112,14 @@ const Screening = db.model('Screening', screeningSchema);
 export const create = async (logger: Logger, data: any) => {
   const methodName = "create";
   
+  if(!await verifyUserId(logger, data.user_id)){
+    return {message: "Error, user id does not exist"};
+  }
+
+  if(!await verifyLocationId(logger, data.location_id)){
+    return {message: "Error, location id does not exist"};
+  }
+
   const result = await Screening.create({
     user_id: data.user_id,
     location_id: data.location_id,
@@ -131,21 +142,21 @@ export const readById = async (logger: Logger, id: string = "") => {
     console.error("Read failed, No ID");
   }
 
-  const user = await Screening.findById(id);
+  const result = await Screening.findById(id);
 
   logger.info({ moduleName, methodName });
 
-  return user;
+  return result;
 }
 
 export const readAll = async (logger: Logger) => {
   const methodName = "readAll";
 
-  const users = await Screening.find()
+  const result = await Screening.find()
 
   logger.info({ moduleName, methodName });
 
-  return users;
+  return result;
 }
 
 export const update = async (logger: Logger, data: any) => {
@@ -177,15 +188,31 @@ export const remove = async (logger: Logger, id: string) => {
   return result;
 }
 
+export const verifyScreeningId = async (logger: Logger, id: string) => {
+  const methodName = "verifyScreeningId";
+
+  if (!id) {
+    return false;
+  }
+
+  const result = await Screening.exists({_id: id});
+
+  logger.info({ moduleName, methodName });
+
+  return result;
+}
+
 if (require.main === module) {
   const logger = getLogger(moduleName);
   // test for listin orders
   (async () => {
-    // let result = await create(logger, {user_id: "dummy id", location_id: "dummy id 2", notes: "notes"});
+    // let result = await create(logger, {user_id: "65186ff8bdc6c69c7645cbaf", location_id: "6518949f70100b656b47ca8e", notes: "notes"});
+    // console.log(result);
+    // result = await create(logger, {user_id: "65186ff8bdc6c69c7645cbaf", location_id: "65186ff8bdc6c69c7645cbaf", notes: "notes"})
+    // console.log(result);
     // let result = await readById (logger, '65188b70c392872824e22e2e')
     // let result = await readAll(logger);
     // let result = await remove(logger, "65188b70c392872824e22e2e")
     // let result = await update(logger, {_id: "65188b70c392872824e22e2e", notes: "new notes"})
-    // console.log(result);
   })();
 }
