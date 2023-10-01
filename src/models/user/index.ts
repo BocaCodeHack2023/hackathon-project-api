@@ -46,8 +46,11 @@ const User = db.model("User", userSchema);
 export const create = async (logger: Logger, data: any) => {
   const methodName = "create";
 
-  if(data.user_type != 'volunteer' && !await verifyOrganizationId(logger, data.company_id)){
-    return {message: "Error, organization id does not exist"}
+  if (
+    data.user_type != "volunteer" &&
+    !(await verifyOrganizationId(logger, data.company_id))
+  ) {
+    return { message: "Error, organization id does not exist" };
   }
 
   let result = await User.create({
@@ -84,7 +87,7 @@ export const readById = async (logger: Logger, id: string = "") => {
 
   const result = await User.findById(id);
 
-  logger.info({ moduleName, methodName });
+  logger.info({ moduleName, methodName }, `result: ${result} `);
 
   return result;
 };
@@ -135,13 +138,12 @@ export const verifyUserId = async (logger: Logger, id: string) => {
     return false;
   }
 
-  const result = await User.exists({_id: id});
+  const result = await User.exists({ _id: id });
 
   logger.info({ moduleName, methodName });
 
   return result;
-
-}
+};
 
 if (require.main === module) {
   const logger = getLogger(moduleName);

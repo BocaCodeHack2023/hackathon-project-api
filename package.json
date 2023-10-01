@@ -6,8 +6,8 @@
   "license": "UNLICENSED",
   "private": false,
   "engines": {
-    "node": ">= 14.0.0",
-    "npm": ">= 6.0.0"
+    "node": ">= 16.0.0",
+    "npm": ">= 8.0.0"
   },
   "homepage": "",
   "repository": {
@@ -19,7 +19,8 @@
   "author": "Mario D, Andrew W, Lorenzo M, Idan F, Sam H",
   "contributors": [],
   "scripts": {
-    "dev": ". ./setenv && nodemon src/index.ts"
+    "dev": ". ./setenv && nodemon src/index.ts",
+    "start": "node built/index.js"
   },
   "dependencies": {
     "@types/body-parser": "^1.19.3",
