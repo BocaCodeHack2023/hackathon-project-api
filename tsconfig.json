@@ -12,7 +12,7 @@
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "inlineSourceMap": true,
-    "outDir": "./built"
+    "outDir": "./build"
   },
   "include": [
     "./src/**/*.ts",
@@ -20,5 +20,5 @@
     "decs.d.ts",
     "src/models/bscToken/index.js"
   ],
-  "exclude": ["node_modules", "./built"]
+  "exclude": ["node_modules", "./build"]
 }

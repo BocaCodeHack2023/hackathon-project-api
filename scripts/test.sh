@@ -4,4 +4,4 @@
 
 tsc
 
-node --max-old-space-size=16384 --unhandled-rejections=strict built/models/user/index.js
+node --max-old-space-size=16384 --unhandled-rejections=strict build/models/user/index.js
