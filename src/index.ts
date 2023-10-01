@@ -12,6 +12,7 @@ app.use(
     origin: [
       "http://localhost:3000",
       "https://acs-hackathon-2023-lmkw.web.app",
+      "https://hackaton-last-of-us.web.app",
     ],
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   })
