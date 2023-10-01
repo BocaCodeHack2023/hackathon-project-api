@@ -26,7 +26,7 @@ app.use(
 // app routes
 routes(app);
 
-let server: any = app.listen(3013, function () {
+let server: any = app.listen(process.env.PORT, function () {
   let host: any = server.address().address;
   let port: any = server.address().port;
 
