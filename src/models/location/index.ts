@@ -101,6 +101,20 @@ export const remove = async (logger: Logger, id: string) => {
   return result;
 }
 
+export const verifyLocationId = async (logger: Logger, id: string) => {
+  const methodName = "verifyUserId";
+
+  if (!id) {
+    return false;
+  }
+
+  const result = await Location.exists({_id: id});
+
+  logger.info({ moduleName, methodName });
+
+  return result;
+}
+
 if (require.main === module) {
   const logger = getLogger(moduleName);
   // test for listin orders
