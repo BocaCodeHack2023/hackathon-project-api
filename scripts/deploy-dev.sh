@@ -4,4 +4,4 @@
 
 tsc
 
-node built/index.js
+node build/index.js
