@@ -1,7 +1,7 @@
 import * as express from "express";
 import * as bodyParser from "body-parser";
 import * as cors from "cors";
-
+import "dotenv/config";
 const { routes } = require("./routes/index");
 
 let app = express();
