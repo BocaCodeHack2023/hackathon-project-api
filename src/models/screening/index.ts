@@ -192,10 +192,10 @@ if (require.main === module) {
   const logger = getLogger(moduleName);
   // test for listin orders
   (async () => {
-    let result = await create(logger, {user_id: "65186ff8bdc6c69c7645cbaf", location_id: "dummy id 2", notes: "notes"});
-    console.log(result);
-    result = await create(logger, {user_id: "non-existant id", location_id: "dummy id 2", notes: "notes"})
-    console.log(result);
+    // let result = await create(logger, {user_id: "65186ff8bdc6c69c7645cbaf", location_id: "6518949f70100b656b47ca8e", notes: "notes"});
+    // console.log(result);
+    // result = await create(logger, {user_id: "65186ff8bdc6c69c7645cbaf", location_id: "65186ff8bdc6c69c7645cbaf", notes: "notes"})
+    // console.log(result);
     // let result = await readById (logger, '65188b70c392872824e22e2e')
     // let result = await readAll(logger);
     // let result = await remove(logger, "65188b70c392872824e22e2e")
